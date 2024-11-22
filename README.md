@@ -1,4 +1,4 @@
-# Trading-Simulator-[22/11, 8:33 am] Meta AI: Here's a sample README.md file for your Trading Simulator project:
+# Trading-Simulator-BY CHRISTIN RAJESH ALEX
 
 *Trading Simulator*
 
