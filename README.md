@@ -88,5 +88,3 @@ Christin Rajesh Alex
 *Contact*
 
 CHRISTINRAJESHALEX@GMAIL.COM
-
-You can add or modify sections as needed.
