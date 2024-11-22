@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trading Simulator by Christin Rajesh Alex</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        input[type="number"] {
+            width: 200px;
+            height: 25px;
+            font-size: 16px;
+            padding: 5px;
+        }
+        
+        #results {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        #trades {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Trading Simulator by Christin Rajesh Alex</h1>
+    
+    <label for="balance">Balance:</label>
+    <input type="number" id="balance" step="0.01" required>
+    
+    <label for="capitalRisk">Capital Risk (1-100):</label>
+    <input type="number" id="capitalRisk" min="1" max="100" required>
+    
+    <label for="winRate">Win Rate (1-100):</label>
+    <input type="number" id="winRate" min="1" max="100" required>
+    
+    <label for="riskReward">Risk to Reward (1-10):</label>
+    <input type="number" id="riskReward" min="1" max="10" required>
+    
+    <label for="numTrades">Number of Trades:</label>
+    <input type="number" id="numTrades" required>
+    
+    <label for="urt">Updated Risk Trade (URT):</label>
+    <input type="checkbox" id="urt">
+    
+    <button type="button" onclick="calculateTrades()">Simulate</button>
+    
+    <div id="results">
+        <h2>Results:</h2>
+        <p id="newBalance"></p>
+    </div>
+    
+    <div id="trades">
+        <h2>Trade Information:</h2>
+        <div id="tradeList"></div>
+    </div>
+    
+    <script>
+        function calculateTrades() {
+            const balance = parseFloat(document.getElementById('balance').value);
+            const capitalRisk = parseFloat(document.getElementById('capitalRisk').value);
+            const winRate = parseFloat(document.getElementById('winRate').value) / 100;
+            const riskReward = parseFloat(document.getElementById('riskReward').value);
+            const numTrades = parseInt(document.getElementById('numTrades').value);
+            const urt = document.getElementById('urt').checked;
+            
+            let currentBalance = balance;
+            let tradeList = '';
+            
+            for (let i = 0; i < numTrades; i++) {
+                const riskAmount = urt ? (currentBalance * capitalRisk / 100) : (balance * capitalRisk / 100);
+                const win = Math.random() < winRate;
+                const profit = win ? riskAmount * riskReward : -riskAmount;
+                currentBalance += profit;
+                
+                tradeList += `
+                    <p>Trade ${i + 1}: ${win ? 'Win' : 'Loss'} | Risk: ${riskAmount} | Profit: ${profit} | Balance: ${currentBalance}</p>
+                `;
+            }
+            
+            document.getElementById('newBalance').innerText = `New Balance: ${currentBalance}`;
+            document.getElementById('tradeList').innerHTML = tradeList;
+        }
+    </script>
+</body>
+</html>
